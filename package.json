@@ -1,0 +1,20 @@
+{
+  "name": "simple-ws",
+  "version": "1.0.0",
+  "description": "Simple WwebSocket Chat",
+  "author": "Emils Plavenieks <emils@plavenieks.lv>",
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "node_modules/.bin/tsc --build",
+    "start": "node_modules/.bin/tsc --build && node ./lib/index.js",
+    "watch": "node_modules/.bin/nodemon --watch ./src -e ts --exec \"npm run start\""
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^11.13.7",
+    "nodemon": "^1.18.11",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.4"
+  }
+}
