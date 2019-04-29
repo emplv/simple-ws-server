@@ -18,9 +18,9 @@
 
 ## Commands
 
-`npm run build` - compiles ts to js
-`npm run start` - compiles ts to js, starts server
-`npm run watch` - compiles ts to js, starts server, watches for changes
+`npm run build` - compiles ts to js  
+`npm run start` - compiles ts to js, starts server  
+`npm run watch` - compiles ts to js, starts server, watches for changes  
 `npm run client` - install client dependencies and creates bundles
 
 ### Optionally can pass config params to `start`/`watch`:
