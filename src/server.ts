@@ -3,10 +3,11 @@ import { EventEmitter } from "events";
 import * as http from "http";
 import { Socket } from "net";
 import { URL } from "url";
-import * as Logger from "./Logger";
-import WS from "./socket";
+import Logger from "./Logger";
+import WS from "./Socket";
 
 class WebSocketServer extends EventEmitter {
+  private logger: Logger;
   private server: http.Server;
   private users: Map<string, WS>;
 
@@ -15,11 +16,10 @@ class WebSocketServer extends EventEmitter {
     if (!server) {
       throw new Error("WebSocketServer needs server");
     }
+    this.logger = new Logger();
     this.server = server;
     this.users = new Map();
     this.addListeners();
-    Logger.openLog();
-    Logger.log("Server started");
     callback && callback();
   }
 
@@ -40,7 +40,7 @@ class WebSocketServer extends EventEmitter {
       excludeUsers.push(from);
     }
     const data = constructMessage(message, from);
-    Logger.log(message, from, closeCode);
+    this.logger.emit("log", message, from, closeCode);
     this.users.forEach((socket, user) => {
       if (!excludeUsers.includes(user)) {
         socket.emit("send", data);
@@ -56,8 +56,7 @@ class WebSocketServer extends EventEmitter {
     this.users.forEach(async socket => {
       await socket.emit("close");
     });
-    Logger.log("Server shutting down");
-    Logger.closeLog();
+    this.logger.emit("close");
     callback && callback();
   }
 

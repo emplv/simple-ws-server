@@ -1,4 +1,5 @@
 node_modules
 lib
-.env
 logs/*.log
+public/css
+public/js

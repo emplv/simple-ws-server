@@ -1,12 +1,12 @@
 import { EventEmitter } from "events";
 import { Socket } from "net";
 import { parseFrame } from "./parseFrame";
-import WebSocketServer from "./server";
+import WebSocketServer from "./Server";
 
 const timeout = +process.env.timeout || 30000;
 const DisconnectMessages = [
-  ' left (connection lost)',
-  ' was disconnected due to inactivity'
+  " left (connection lost)",
+  " was disconnected due to inactivity"
 ];
 
 class WS extends EventEmitter {

@@ -1,10 +1,14 @@
+import * as express from "express";
 import * as http from "http";
-import WebSocketServer from "./server";
+import WebSocketServer from "./Server";
 
 const port = +process.env.port || 3210;
-const server = http.createServer((req, res) => {
-  res.end("Nothing here");
-});
+const app = express();
+
+app.use(express.static("public"));
+app.use(express.static("client/public"));
+
+const server = http.createServer(app);
 server.listen(port, () =>
   console.log(`Server running at http://localhost:${port}`)
 );
@@ -14,13 +18,13 @@ const ws = new WebSocketServer(server, () => {
 
 function Shutdown() {
   ws.shutdown(() => {
-    console.log('Websocket server closed');
+    console.log("Websocket server closed");
     server.close(() => {
-      console.log('Http server closed.');
+      console.log("Http server closed.");
       process.exit(0);
     });
   });
-};
+}
 
-process.on('SIGINT', Shutdown);
-process.on('SIGTERM', Shutdown);
+process.on("SIGINT", Shutdown);
+process.on("SIGTERM", Shutdown);
